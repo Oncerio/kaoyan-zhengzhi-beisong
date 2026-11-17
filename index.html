@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>考研政治·腿姐背诵手册 · 自测过关</title>
+<style>
+  :root {
+    --bg: #f4f6fb;
+    --card: #ffffff;
+    --ink: #1f2430;
+    --muted: #8a93a6;
+    --brand: #c0392b;
+    --brand-2: #e74c3c;
+    --good: #27ae60;
+    --warn: #e67e22;
+    --bad: #c0392b;
+    --line: #e6e9f0;
+    --shadow: 0 6px 24px rgba(30, 40, 80, .08);
+    --radius: 16px;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: "PingFang SC", "Microsoft YaHei", "Segoe UI", system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 20px 16px 80px; }
+
+  header.top {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 4px 10px; gap: 12px;
+  }
+  header.top .logo { font-weight: 800; font-size: 20px; letter-spacing: .5px; }
+  header.top .logo small { display:block; font-size: 12px; color: var(--muted); font-weight: 400; margin-top: 2px; }
+  .badge {
+    background: var(--brand); color: #fff; font-size: 12px; font-weight: 700;
+    padding: 6px 12px; border-radius: 999px; white-space: nowrap;
+  }
+
+  nav.tabs {
+    display: flex; gap: 8px; overflow-x: auto; padding: 6px 2px 14px;
+    position: sticky; top: 0; background: var(--bg); z-index: 10;
+  }
+  nav.tabs button {
+    border: 1px solid var(--line); background: #fff; color: var(--muted);
+    padding: 9px 14px; border-radius: 999px; font-size: 14px; cursor: pointer;
+    white-space: nowrap; transition: .15s;
+  }
+  nav.tabs button:hover { border-color: var(--brand-2); color: var(--brand-2); }
+  nav.tabs button.active { background: var(--brand); border-color: var(--brand); color: #fff; font-weight: 700; }
+
+  .card {
+    background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow);
+    padding: 22px 22px 24px; margin-bottom: 16px;
+  }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+  .stat {
+    background: var(--card); border-radius: 14px; padding: 16px; text-align: center;
+    box-shadow: var(--shadow);
+  }
+  .stat .num { font-size: 30px; font-weight: 800; line-height: 1; }
+  .stat .lbl { font-size: 12px; color: var(--muted); margin-top: 6px; }
+  .stat.good .num { color: var(--good); }
+  .stat.warn .num { color: var(--warn); }
+  .stat.bad .num { color: var(--bad); }
+  .stat.brand .num { color: var(--brand); }
+
+  .bar { height: 10px; background: #edf0f6; border-radius: 999px; overflow: hidden; }
+  .bar > i { display: block; height: 100%; background: linear-gradient(90deg, var(--brand), var(--brand-2)); border-radius: 999px; transition: width .4s; }
+
+  h2 { font-size: 17px; margin: 4px 0 12px; }
+  .muted { color: var(--muted); font-size: 13px; }
+  .cat-row { margin-bottom: 14px; }
+  .cat-row .head { display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 6px; }
+  .cat-row .head .pct { color: var(--muted); font-weight: 700; }
+
+  .btn {
+    border: none; cursor: pointer; border-radius: 12px; padding: 12px 18px;
+    font-size: 15px; font-weight: 700; transition: .15s; background: #edf0f6; color: var(--ink);
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn.primary { background: var(--brand); color: #fff; }
+  .btn.primary:hover { background: var(--brand-2); }
+  .btn.good { background: var(--good); color: #fff; }
+  .btn.warn { background: var(--warn); color: #fff; }
+  .btn.bad { background: var(--bad); color: #fff; }
+  .btn.ghost { background: #fff; border: 1px solid var(--line); color: var(--muted); }
+  .btn:disabled { opacity: .45; cursor: not-allowed; transform: none; }
+  .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+  .actions .spacer { flex: 1; }
+
+  .prompt {
+    font-size: 20px; line-height: 1.9; font-weight: 500; letter-spacing: .3px;
+    white-space: pre-wrap; word-break: break-word;
+  }
+  .blank {
+    display: inline-block; min-width: 3em; text-align: center; color: var(--brand);
+    border-bottom: 2px solid var(--brand); padding: 0 6px; margin: 0 2px;
+    font-weight: 700; border-radius: 2px;
+  }
+  .answer {
+    margin-top: 18px; padding: 16px; border-radius: 12px; background: #fdf6f3;
+    border: 1px solid #f3d8cf; font-size: 17px; line-height: 1.85; white-space: pre-wrap;
+    word-break: break-word; display: none;
+  }
+  .answer.show { display: block; animation: pop .18s ease; }
+  .answer .fill { color: var(--brand); font-weight: 800; }
+  .answer .verdict { font-weight: 800; font-size: 16px; margin-bottom: 10px; }
+  .answer .ansrow { margin: 6px 0; padding: 8px 10px; border-radius: 8px; background: #fff; border: 1px solid #eee; }
+  .answer .ansrow.ok { border-left: 4px solid var(--good); background: #f0faf4; }
+  .answer .ansrow.miss { border-left: 4px solid var(--bad); background: #fdf1f0; }
+  @keyframes pop { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+  .meta-line { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+  .chip { font-size: 12px; padding: 3px 10px; border-radius: 999px; background: #eef1f8; color: #5a6478; font-weight: 600; }
+  .stars { color: #f1c40f; font-size: 14px; letter-spacing: 1px; }
+  .qcount { color: var(--muted); font-size: 13px; }
+
+  .controls { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-bottom: 14px; }
+  select, input[type=number] {
+    padding: 9px 12px; border-radius: 10px; border: 1px solid var(--line); font-size: 14px; background: #fff;
+  }
+  .kb-hint { font-size: 12px; color: var(--muted); margin-top: 10px; }
+
+  .empty { text-align: center; padding: 50px 10px; color: var(--muted); }
+  .empty .big { font-size: 40px; margin-bottom: 8px; }
+
+  .summary-result { text-align: center; padding: 10px 0; }
+  .summary-result .big { font-size: 46px; font-weight: 800; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th, td { text-align: left; padding: 9px 8px; border-bottom: 1px solid var(--line); }
+  th { color: var(--muted); font-weight: 600; font-size: 12px; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; }
+
+  .hidden { display: none !important; }
+  .flash { animation: flash .5s; }
+  @keyframes flash { 0% { background: #fff4ec; } 100% { background: transparent; } }
+
+  textarea {
+    width: 100%; min-height: 90px; border-radius: 12px; border: 1px solid var(--line);
+    padding: 12px; font-size: 16px; resize: vertical; font-family: inherit;
+  }
+</style>
+</head>
+<body>
+<div id="errBox" style="display:none;position:fixed;top:0;left:0;right:0;z-index:9999;background:#c0392b;color:#fff;padding:14px 18px;font-size:14px;line-height:1.6;white-space:pre-wrap;font-family:Consolas,monospace;box-shadow:0 4px 16px rgba(0,0,0,.3);"></div>
+<div class="wrap">
+  <header class="top">
+    <div class="logo">考研政治 · 背诵自测<span><small>腿姐《冲刺背诵手册》背练结合自测本 · 过关工具</small></span></div>
+    <span class="badge" id="topBadge">加载中…</span>
+  </header>
+
+  <nav class="tabs" id="tabs">
+    <button data-screen="dashboard" class="active">📊 总览</button>
+    <button data-screen="study">📖 背诵</button>
+    <button data-screen="targeted">🎯 薄弱强化</button>
+    <button data-screen="wrong">❌ 错题本</button>
+    <button data-screen="stats">📈 统计</button>
+    <button data-screen="settings">⚙️ 设置</button>
+  </nav>
+
+  <!-- 总览 -->
+  <section id="screen-dashboard"></section>
+
+  <!-- 背诵 -->
+  <section id="screen-study" class="hidden"></section>
+
+  <!-- 薄弱强化 -->
+  <section id="screen-targeted" class="hidden"></section>
+
+  <!-- 错题本 -->
+  <section id="screen-wrong" class="hidden"></section>
+
+  <!-- 统计 -->
+  <section id="screen-stats" class="hidden"></section>
+
+  <!-- 设置 -->
+  <section id="screen-settings" class="hidden"></section>
+</div>
+
+<script src="question_bank.js"></script>
+<script>
+"use strict";
+/* ============ 错误可见化 ============ */
+function showError(msg) {
+  try {
+    var b = document.getElementById("errBox");
+    if (b) { b.style.display = "block"; b.textContent = "程序加载出错：\n" + msg; }
+  } catch (e) {}
+}
+window.addEventListener("error", function (e) {
+  showError(e.message || (e.error && e.error.stack) || "未知错误");
+});
+window.addEventListener("unhandledrejection", function (e) {
+  var r = e.reason;
+  showError((r && (r.stack || r.message)) || "Promise 错误");
+});
+
+/* ============ 数据 ============ */
+const BANK = window.QUESTION_BANK || { title: "题库", categories: [], questions: [] };
+const LS_KEY = "zz_legui_mastery_v1";
+
+/* 归一化题目：同时支持嵌套 categories 与扁平 questions */
+function flattenBank() {
+  if (BANK.questions && BANK.questions.length) {
+    return BANK.questions.map(function (q) { return Object.assign({}, q, { cat: q.cat || q.category || "未分类" }); });
+  }
+  var out = [];
+  (BANK.categories || []).forEach(function (c) {
+    (c.questions || []).forEach(function (q) { out.push(Object.assign({}, q, { cat: q.cat || c.name })); });
+  });
+  return out;
+}
+const ALL_QUESTIONS = flattenBank();
+const CATEGORIES = [...new Set(ALL_QUESTIONS.map(q => q.cat))];
+
+/* ============ 状态 ============ */
+function defaultState() {
+  return { mastery: {}, wrong: {}, history: [] };
+}
+let state = load();
+
+function load() {
+  try {
+    const raw = localStorage.getItem(LS_KEY);
+    if (raw) { const s = JSON.parse(raw); if (s && s.mastery) return s; }
+  } catch (e) {}
+  return defaultState();
+}
+function save() {
+  try { localStorage.setItem(LS_KEY, JSON.stringify(state)); } catch (e) {}
+}
+
+function m(qid) {
+  return state.mastery[qid] || { level: 0, reviews: 0, wrong: 0, lastTs: 0 };
+}
+function setLevel(qid, level) {
+  var cur = m(qid);
+  state.mastery[qid] = Object.assign({}, cur, { level: level, lastTs: Date.now() });
+  if (level >= 4) delete state.wrong[qid];
+  save();
+}
+function levelStar(qid) { return m(qid).level; }
+
+/* 记录一次作答：result ∈ {known, fuzzy, forgot} */
+function record(qid, result) {
+  var cur = m(qid);
+  var level = cur.level;
+  if (result === "known") level = Math.min(5, level + 1);
+  else if (result === "fuzzy") level = Math.max(0, level - 1);
+  else { level = 0; cur.wrong = (cur.wrong || 0) + 1; }
+  state.mastery[qid] = Object.assign({}, cur, { level: level, reviews: (cur.reviews || 0) + 1, wrong: cur.wrong || 0, lastTs: Date.now() });
+  if (result === "forgot" || result === "fuzzy") state.wrong[qid] = true;
+  else if (level >= 4) delete state.wrong[qid];
+  state.history.push({ qid, result, ts: Date.now() });
+  if (state.history.length > 5000) state.history = state.history.slice(-5000);
+  save();
+}
+
+function levelLabel(lv) {
+  return ["未学", "生疏", "模糊", "一般", "较熟", "熟练"][lv] || lv;
+}
+
+/* ============ 工具 ============ */
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+function el(html) { const d = document.createElement("div"); d.innerHTML = html.trim(); return d.firstElementChild; }
+function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" }[c])); }
+function numToCircle(n) {
+  var c = ["①","②","③","④","⑤","⑥","⑦","⑧","⑨","⑩","⑪","⑫","⑬","⑭","⑮","⑯","⑰","⑱","⑲","⑳"];
+  return c[n - 1] || ("(" + n + ")");
+}
+function highlightPrompt(prompt) {
+  // 将空白处按顺序编号渲染
+  var s = esc(prompt);
+  var i = 0;
+  s = s.replace(/_{3,}/g, function () { i++; return '<span class="blank">' + numToCircle(i) + '</span>'; });
+  s = s.replace(/（\s*）/g, function () { i++; return '<span class="blank">' + numToCircle(i) + '</span>'; });
+  s = s.replace(/【\s*】/g, function () { i++; return '<span class="blank">' + numToCircle(i) + '</span>'; });
+  s = s.replace(/\(\s*\)/g, function () { i++; return '<span class="blank">' + numToCircle(i) + '</span>'; });
+  return s;
+}
+function highlightAnswer(answer) {
+  return esc(answer).replace(/(^|[；;、，,]\s*)/g, m => m); // 保持原样，另行加粗
+}
+function fmtAnswer(answer) {
+  if (Array.isArray(answer)) return answer.map((a,i)=>`<span class="fill">${esc(a)}</span>`).join("　");
+  return `<span class="fill">${esc(answer)}</span>`;
+}
+
+/* ============ 导航 ============ */
+const SCREENS = ["dashboard","study","targeted","wrong","stats","settings"];
+let currentScreen = "dashboard";
+function go(screen) {
+  currentScreen = screen;
+  $$("#tabs button").forEach(b => b.classList.toggle("active", b.dataset.screen === screen));
+  SCREENS.forEach(s => $("#screen-" + s).classList.toggle("hidden", s !== screen));
+  if (screen === "dashboard") renderDashboard();
+  if (screen === "study") renderStudy();
+  if (screen === "targeted") renderTargeted();
+  if (screen === "wrong") renderWrong();
+  if (screen === "stats") renderStats();
+  if (screen === "settings") renderSettings();
+  window.scrollTo({ top: 0 });
+}
+$("#tabs").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (b) go(b.dataset.screen);
+});
+
+/* ============ 总览 ============ */
+function renderDashboard() {
+  const total = ALL_QUESTIONS.length;
+  const mastered = ALL_QUESTIONS.filter(q => m(q.id).level >= 4).length;
+  const learning = ALL_QUESTIONS.filter(q => { const l = m(q.id).level; return l >= 1 && l < 4; }).length;
+  const fresh = total - mastered - learning;
+  const wrongCount = Object.keys(state.wrong).length;
+  const pct = total ? Math.round(mastered / total * 100) : 0;
+
+  $("#topBadge").textContent = total ? `已掌握 ${pct}%` : "空题库";
+
+  const catRows = CATEGORIES.map(c => {
+    const qs = ALL_QUESTIONS.filter(q => q.cat === c);
+    const ms = qs.filter(q => m(q.id).level >= 4).length;
+    const p = qs.length ? Math.round(ms / qs.length * 100) : 0;
+    return `<div class="cat-row">
+      <div class="head"><span>${esc(c)}</span><span class="pct">${ms}/${qs.length} · ${p}%</span></div>
+      <div class="bar"><i style="width:${p}%"></i></div>
+    </div>`;
+  }).join("");
+
+  $("#screen-dashboard").innerHTML = `
+    <div class="grid">
+      <div class="stat brand"><div class="num">${total}</div><div class="lbl">题目总数</div></div>
+      <div class="stat good"><div class="num">${mastered}</div><div class="lbl">已掌握 (L4+)</div></div>
+      <div class="stat warn"><div class="num">${learning}</div><div class="lbl">学习中 (L1-3)</div></div>
+      <div class="stat bad"><div class="num">${wrongCount}</div><div class="lbl">错题本待攻克</div></div>
+    </div>
+
+    <div class="card">
+      <h2>总体掌握进度</h2>
+      <div class="bar"><i style="width:${pct}%"></i></div>
+      <p class="muted">共 ${total} 题 · 未开始 ${fresh} 题</p>
+      <div class="actions">
+        <button class="btn primary" id="btnStudyAll">📖 开始背诵</button>
+        <button class="btn good" id="btnRandom">🔀 随机抽查 20 题</button>
+        <button class="btn warn" id="btnTargeted">🎯 薄弱强化</button>
+        <button class="btn bad" id="btnWrong">❌ 错题本</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>分科掌握情况</h2>
+      ${catRows || '<p class="muted">暂无分类数据</p>'}
+    </div>`;
+
+  $("#btnStudyAll").onclick = () => { startStudy(allFiltered()); };
+  $("#btnRandom").onclick = () => { startStudy(shuffle(allFiltered()).slice(0, 20)); };
+  $("#btnTargeted").onclick = () => go("targeted");
+  $("#btnWrong").onclick = () => go("wrong");
+}
+
+function shuffle(a) { const r = a.slice(); for (let i = r.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [r[i], r[j]] = [r[j], r[i]]; } return r; }
+function allFiltered() { return ALL_QUESTIONS.slice(); }
+
+/* ============ 背诵会话 ============ */
+let session = { list: [], idx: 0, phase: "input", done: [], typed: "", result: null };
+
+function startStudy(list) {
+  session = { list: shuffle(list || []), idx: 0, phase: "input", done: [], typed: "", result: null };
+  go("study");
+}
+
+function currentQ() { return session.list[session.idx]; }
+
+/* ============ 答案判定（输入后自动判对错） ============ */
+function normalizeText(s) {
+  return String(s || "").replace(/[^\u4e00-\u9fffa-zA-Z0-9]/g, "").toLowerCase();
+}
+function lcsLen(a, b) {
+  var m = a.length, n = b.length;
+  if (!m || !n) return 0;
+  var prev = new Array(n + 1).fill(0), cur = new Array(n + 1).fill(0), tmp;
+  for (var i = 1; i <= m; i++) {
+    cur[0] = 0;
+    for (var j = 1; j <= n; j++) {
+      cur[j] = (a.charAt(i - 1) === b.charAt(j - 1)) ? (prev[j - 1] + 1) : Math.max(prev[j], cur[j - 1]);
+    }
+    tmp = prev; prev = cur; cur = tmp;
+  }
+  return prev[n];
+}
+function blankHit(expected, input) {
+  var e = normalizeText(expected), t = normalizeText(input);
+  if (!e) return false;
+  if (t.indexOf(e) >= 0) return true;
+  return (lcsLen(e, t) / e.length) >= 0.75;
+}
+function judgeAnswer(q, typed) {
+  var ans = Array.isArray(q.answer) ? q.answer : [q.answer];
+  var hits = ans.map(function (a) { return blankHit(a, typed); });
+  var hitCount = 0;
+  hits.forEach(function (h) { if (h) hitCount++; });
+  return { hits: hits, hitCount: hitCount, total: ans.length, ratio: ans.length ? hitCount / ans.length : 0 };
+}
+
+function renderStudy() {
+  var box = $("#screen-study");
+  if (!session.list.length || session.idx >= session.list.length) {
+    var known = session.done.filter(function (r) { return r === "known"; }).length;
+    var fuzzy = session.done.filter(function (r) { return r === "fuzzy"; }).length;
+    var forgot = session.done.filter(function (r) { return r === "forgot"; }).length;
+    var total = session.done.length;
+    box.innerHTML = '<div class="card summary-result">' +
+      '<div class="big">' + (total ? "本轮完成 🎉" : "暂无可背题目") + '</div>' +
+      '<p class="muted">' + (total ? ("本轮 " + total + " 题 · 记得 " + known + " · 模糊 " + fuzzy + " · 忘了 " + forgot) : "请先在总览选择题目开始") + '</p>' +
+      '<div class="actions" style="justify-content:center">' +
+        '<button class="btn primary" id="btnAgain">再背一轮</button>' +
+        '<button class="btn ghost" id="btnBackDash">返回总览</button>' +
+      '</div>' +
+    '</div>';
+    $("#btnAgain").onclick = function () { startStudy(allFiltered()); };
+    $("#btnBackDash").onclick = function () { go("dashboard"); };
+    return;
+  }
+
+  var q = currentQ();
+  var lv = levelStar(q.id);
+  var stars = "★".repeat(lv) + "☆".repeat(5 - lv);
+  var order = (session.idx + 1) + " / " + session.list.length;
+  var ansList = Array.isArray(q.answer) ? q.answer : [q.answer];
+  var phase = session.phase || "input";
+
+  function nextQuestion() { session.idx++; session.phase = "input"; session.typed = ""; session.result = null; renderStudy(); }
+  function gradeResult(result) { record(q.id, result); session.done.push(result); nextQuestion(); }
+
+  var inputHtml = "";
+  var answerHtml = "";
+  var actionsHtml = "";
+
+  if (phase === "input") {
+    inputHtml = '<textarea id="typedBox" placeholder="按空号顺序填写答案（各空用空格或、分隔，也可整句默写）"></textarea>';
+    actionsHtml = '<div class="actions"><button class="btn primary" id="btnJudge">✅ 提交判定</button><button class="btn ghost" id="btnReveal">👁 直接看答案</button></div>';
+  } else if (phase === "judged") {
+    var res = session.result || { hits: [], hitCount: 0, total: ansList.length, ratio: 0 };
+    var verdictText;
+    if (res.ratio >= 1) verdictText = "全部答对 🎉 已记为「记得」";
+    else if (res.ratio >= 0.5) verdictText = "答对 " + res.hitCount + "/" + res.total + " 个空，已记为「模糊」";
+    else verdictText = "答对 " + res.hitCount + "/" + res.total + " 个空，已记为「忘了」";
+    var rows = ansList.map(function (a, i) {
+      var ok = res.hits[i];
+      return '<div class="ansrow ' + (ok ? "ok" : "miss") + '">' + (ok ? "✅" : "❌") + " " + numToCircle(i + 1) + "　" + esc(a) + "</div>";
+    }).join("");
+    answerHtml = '<div class="answer show"><div class="verdict">' + verdictText + "</div>" + rows + "</div>";
+    actionsHtml = '<div class="actions"><button class="btn primary" id="btnNext">下一题 →</button></div>';
+  } else {
+    var ansDisp = ansList.map(function (a, i) {
+      return '<div class="ansrow">' + numToCircle(i + 1) + '　<span class="fill">' + esc(a) + "</span></div>";
+    }).join("");
+    answerHtml = '<div class="answer show">' + ansDisp + "</div>";
+    actionsHtml = '<div class="actions">' +
+      '<button class="btn good" id="btnKnown">记得 (1)</button>' +
+      '<button class="btn warn" id="btnFuzzy">模糊 (2)</button>' +
+      '<button class="btn bad" id="btnForgot">忘了 (3)</button>' +
+    "</div>";
+  }
+
+  var hintText = (phase === "input") ? "Ctrl+Enter 提交判定 · 也可点「直接看答案」后自评" : "空格 或 → 下一题 · 1/2/3 自评";
+
+  box.innerHTML = '<div class="card" id="studyCard">' +
+    '<div class="meta-line">' +
+      '<span class="chip">' + esc(q.cat) + "</span>" +
+      (q.day ? '<span class="chip">Day ' + q.day + " · 第" + q.no + "题</span>" : "") +
+      '<span class="qcount">' + order + "</span>" +
+      '<span class="stars" title="掌握等级">' + stars + "</span>" +
+    "</div>" +
+    '<div class="prompt">' + highlightPrompt(q.prompt || q.question || "") + "</div>" +
+    (q.hint ? '<p class="muted" style="margin-top:8px">💡 ' + esc(q.hint) + "</p>" : "") +
+    inputHtml +
+    answerHtml +
+    actionsHtml +
+    '<p class="kb-hint">' + hintText + "</p>" +
+  "</div>";
+
+  if (phase === "input") {
+    var typedBox = $("#typedBox");
+    if (session.typed) typedBox.value = session.typed;
+    typedBox.focus();
+    var doJudge = function () {
+      var val = typedBox.value || "";
+      session.typed = val;
+      var res = judgeAnswer(q, val);
+      var result = (res.ratio >= 1) ? "known" : (res.ratio >= 0.5 ? "fuzzy" : "forgot");
+      record(q.id, result);
+      session.done.push(result);
+      session.result = res;
+      session.phase = "judged";
+      renderStudy();
+    };
+    $("#btnJudge").onclick = doJudge;
+    $("#btnReveal").onclick = function () { session.phase = "revealed"; renderStudy(); };
+    typedBox.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) { e.preventDefault(); doJudge(); }
+    });
+  } else if (phase === "judged") {
+    $("#btnNext").onclick = nextQuestion;
+  } else {
+    $("#btnKnown").onclick = function () { gradeResult("known"); };
+    $("#btnFuzzy").onclick = function () { gradeResult("fuzzy"); };
+    $("#btnForgot").onclick = function () { gradeResult("forgot"); };
+  }
+}
+
+/* ============ 薄弱强化 ============ */
+function weakList() {
+  return ALL_QUESTIONS
+    .map(q => ({ q, lv: m(q.id).level, wrong: m(q.id).wrong || 0, ts: m(q.id).lastTs }))
+    .filter(x => x.lv < 4)
+    .sort((a, b) => a.lv - b.lv || b.wrong - a.wrong || a.ts - b.ts);
+}
+function renderTargeted() {
+  const box = $("#screen-targeted");
+  const list = weakList();
+  if (!list.length) {
+    box.innerHTML = `<div class="card empty"><div class="big">🎯</div><p>太棒了！没有薄弱题（等级 < 4 的题目）。</p></div>`;
+    return;
+  }
+  box.innerHTML = `
+    <div class="card">
+      <h2>🎯 薄弱强化</h2>
+      <p class="muted">按「最薄弱 → 较薄弱」排序，共 ${list.length} 题需要巩固。先复习等级最低、错得最多的题。</p>
+      <div class="controls">
+        <label class="muted">每次 <input type="number" id="targetedN" value="20" min="1" max="200" style="width:70px"> 题</label>
+        <label class="muted">仅限科目
+          <select id="targetedCat">
+            <option value="">全部</option>
+            ${CATEGORIES.map(c => `<option>${esc(c)}</option>`).join("")}
+          </select>
+        </label>
+      </div>
+      <div class="actions">
+        <button class="btn warn" id="btnStartWeak">开始强化训练</button>
+        <button class="btn ghost" id="btnWeakToStudy">进入完整背诵</button>
+      </div>
+    </div>
+    <div class="card">
+      <h2>最薄弱的题目（前 15）</h2>
+      <table>
+        <tr><th>#</th><th>科目</th><th>题目</th><th>等级</th><th>错次</th></tr>
+        ${list.slice(0, 15).map((x, i) => `<tr>
+          <td>${i + 1}</td><td>${esc(x.q.cat)}</td>
+          <td>${highlightPrompt((x.q.prompt || x.q.question || "").slice(0, 30))}…</td>
+          <td>${levelLabel(x.lv)}</td><td class="num">${x.wrong}</td>
+        </tr>`).join("")}
+      </table>
+    </div>`;
+
+  $("#btnStartWeak").onclick = () => {
+    const n = parseInt($("#targetedN").value, 10) || 20;
+    const c = $("#targetedCat").value;
+    const pool = c ? weakList().filter(x => x.q.cat === c) : weakList();
+    startStudy(pool.slice(0, n).map(x => x.q));
+  };
+  $("#btnWeakToStudy").onclick = () => { startStudy(allFiltered()); };
+}
+
+/* ============ 错题本 ============ */
+function renderWrong() {
+  const box = $("#screen-wrong");
+  const ids = Object.keys(state.wrong);
+  const qs = ids.map(id => ALL_QUESTIONS.find(q => q.id === id)).filter(Boolean);
+  qs.sort((a, b) => (m(b.id).wrong || 0) - (m(a.id).wrong || 0));
+  if (!qs.length) {
+    box.innerHTML = `<div class="card empty"><div class="big">✅</div><p>错题本是空的，继续保持！</p></div>`;
+    return;
+  }
+  box.innerHTML = `
+    <div class="card">
+      <h2>❌ 错题本（${qs.length} 题）</h2>
+      <p class="muted">这些题曾被评为「忘了」或「模糊」且尚未掌握。攻克后会自动移出。</p>
+      <div class="actions">
+        <button class="btn bad" id="btnWrongStart">开始攻克错题</button>
+        <button class="btn ghost" id="btnWrongClear">清空错题本</button>
+      </div>
+    </div>
+    <div class="card">
+      <table>
+        <tr><th>#</th><th>科目</th><th>题目</th><th>等级</th><th>错次</th></tr>
+        ${qs.map((q, i) => `<tr>
+          <td>${i + 1}</td><td>${esc(q.cat)}</td>
+          <td>${highlightPrompt((q.prompt || q.question || "").slice(0, 30))}…</td>
+          <td>${levelLabel(m(q.id).level)}</td><td class="num">${m(q.id).wrong || 0}</td>
+        </tr>`).join("")}
+      </table>
+    </div>`;
+
+  $("#btnWrongStart").onclick = () => startStudy(qs);
+  $("#btnWrongClear").onclick = () => {
+    if (confirm("确定清空错题本吗？掌握等级不会被清除。")) {
+      state.wrong = {}; save(); renderWrong();
+    }
+  };
+}
+
+/* ============ 统计 ============ */
+function renderStats() {
+  const box = $("#screen-stats");
+  const total = ALL_QUESTIONS.length;
+  const dist = [0,0,0,0,0,0];
+  ALL_QUESTIONS.forEach(q => dist[m(q.id).level]++);
+  const reviewed = ALL_QUESTIONS.filter(q => m(q.id).reviews > 0).length;
+  const totalReviews = state.history.length;
+  const knownSum = state.history.filter(h => h.result === "known").length;
+  const acc = totalReviews ? Math.round(knownSum / totalReviews * 100) : 0;
+
+  box.innerHTML = `
+    <div class="card">
+      <h2>📈 掌握统计</h2>
+      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(110px,1fr))">
+        <div class="stat"><div class="num">${total}</div><div class="lbl">总题数</div></div>
+        <div class="stat"><div class="num">${reviewed}</div><div class="lbl">已练习</div></div>
+        <div class="stat"><div class="num">${totalReviews}</div><div class="lbl">累计作答</div></div>
+        <div class="stat good"><div class="num">${acc}%</div><div class="lbl">自评记得率</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>掌握等级分布</h2>
+      ${dist.map((n, i) => `
+        <div class="cat-row">
+          <div class="head"><span>L${i} ${levelLabel(i)}</span><span class="pct">${n} 题</span></div>
+          <div class="bar"><i style="width:${total ? Math.round(n/total*100) : 0}%"></i></div>
+        </div>`).join("")}
+    </div>
+    <div class="card">
+      <h2>分科详情</h2>
+      <table>
+        <tr><th>科目</th><th>总数</th><th>已练</th><th>已掌握</th><th>掌握率</th></tr>
+        ${CATEGORIES.map(c => {
+          const qs = ALL_QUESTIONS.filter(q => q.cat === c);
+          const ms = qs.filter(q => m(q.id).level >= 4).length;
+          const rv = qs.filter(q => m(q.id).reviews > 0).length;
+          return `<tr><td>${esc(c)}</td><td class="num">${qs.length}</td><td class="num">${rv}</td><td class="num">${ms}</td><td class="num">${qs.length?Math.round(ms/qs.length*100):0}%</td></tr>`;
+        }).join("")}
+      </table>
+    </div>`;
+}
+
+/* ============ 设置 ============ */
+function renderSettings() {
+  const box = $("#screen-settings");
+  box.innerHTML = `
+    <div class="card">
+      <h2>⚙️ 设置与数据</h2>
+      <p class="muted">进度保存在本机浏览器 localStorage 中，清除浏览器数据会丢失进度，请定期导出备份。</p>
+      <div class="actions">
+        <button class="btn ghost" id="btnExport">⬇️ 导出进度 (JSON)</button>
+        <button class="btn ghost" id="btnImport">⬆️ 导入进度</button>
+        <input type="file" id="importFile" accept="application/json" class="hidden">
+        <button class="btn bad" id="btnReset">🗑 重置全部进度</button>
+      </div>
+    </div>
+    <div class="card">
+      <h2>掌握等级说明</h2>
+      <table>
+        <tr><th>等级</th><th>含义</th></tr>
+        <tr><td>L0 未学</td><td>从未背诵或评为「忘了」</td></tr>
+        <tr><td>L1-3</td><td>学习中：生疏 → 模糊 → 一般</td></tr>
+        <tr><td>L4-5</td><td>已掌握：较熟 / 熟练（L4 起退出薄弱与错题）</td></tr>
+      </table>
+      <p class="muted" style="margin-top:10px">自评「记得」+1 级、「模糊」-1 级、「忘了」归零并计入错题本。</p>
+    </div>`;
+
+  $("#btnExport").onclick = () => {
+    const blob = new Blob([JSON.stringify(state, null, 2)], { type: "application/json" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "zz_mastery_backup.json";
+    a.click();
+  };
+  $("#btnImport").onclick = () => $("#importFile").click();
+  $("#importFile").onchange = e => {
+    const f = e.target.files[0]; if (!f) return;
+    const r = new FileReader();
+    r.onload = () => {
+      try {
+        const s = JSON.parse(r.result);
+        if (s && s.mastery) { state = s; save(); alert("导入成功！"); renderDashboard(); }
+        else alert("文件格式不正确。");
+      } catch (err) { alert("解析失败：" + err.message); }
+    };
+    r.readAsText(f);
+  };
+  $("#btnReset").onclick = () => {
+    if (confirm("确定要清空所有背诵进度吗？此操作不可撤销。")) {
+      state = defaultState(); save(); renderDashboard();
+    }
+  };
+}
+
+/* ============ 键盘快捷键 ============ */
+document.addEventListener("keydown", e => {
+  if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA" || e.target.tagName === "SELECT") return;
+  if (currentScreen !== "study" || !session.list.length || session.idx >= session.list.length) return;
+  var phase = session.phase || "input";
+  if (e.code === "Space") {
+    if (phase === "judged") { e.preventDefault(); var b1 = $("#btnNext"); if (b1) b1.click(); }
+    else if (phase === "revealed") { e.preventDefault(); }
+  } else if (e.key === "1" && phase === "revealed") { var b2 = $("#btnKnown"); if (b2) b2.click(); }
+  else if (e.key === "2" && phase === "revealed") { var b3 = $("#btnFuzzy"); if (b3) b3.click(); }
+  else if (e.key === "3" && phase === "revealed") { var b4 = $("#btnForgot"); if (b4) b4.click(); }
+  else if (e.key === "ArrowRight" && phase === "judged") { var b5 = $("#btnNext"); if (b5) b5.click(); }
+  else if (e.key === "ArrowLeft" && session.idx > 0 && phase !== "input") {
+    session.idx--; session.phase = "input"; session.typed = ""; session.result = null; renderStudy();
+  }
+});
+
+/* ============ 启动 ============ */
+try {
+  renderDashboard();
+} catch (e) {
+  showError(e && e.stack ? e.stack : String(e));
+}
+</script>
+</body>
+</html>
